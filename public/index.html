@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Received Data Display</title>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+<div id="data-container">
+    <h2>Received Data</h2>
+    <p><strong>Current:</strong> <span id="current">Loading...</span></p>
+    <p><strong>Voltage:</strong> <span id="voltage">Loading...</span></p>
+</div>
+
+<script>
+    // Fetch data from the server
+    fetch('/get-data')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the response as JSON
+        })
+        .then(data => {
+            // Update the displayed data
+            document.getElementById('current').textContent = data.current;
+            console.log(data.current);
+            document.getElementById('voltage').textContent = data.voltage;
+            console.log(data.voltage);
+
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+</body>
+</html>
